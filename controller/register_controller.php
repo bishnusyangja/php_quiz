@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
     } else {
         save_to_db($email, $name, $address, $password);
-        $success_message = 'User created successfully with your email. You can login with "$email" email from here.';
+        $success_message = 'User created successfully with your email. You can login with "' . $email . '" email from here.';
         $encoded_success_message = urlencode($success_message);
         header("location: /login.php?success=$encoded_success_message");
         exit();
