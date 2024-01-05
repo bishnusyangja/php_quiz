@@ -9,9 +9,5 @@
 
 <body>
 	<h2><?php echo $page_header ?></h2>
-	<div>
-		<?php echo $content ?>
-	</div>
-	
 </body>
 </html>

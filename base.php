@@ -10,21 +10,25 @@
 <body>
 	<h2><?php echo $page_header ?></h2>
 	
-	<form method="post" action="/controller/quiz_controller.php">
-		<p>  <?php echo $question ?> </p>
-	    
-	    <ul class="no-list">
-	    	<?php
-	    		foreach ($options as $index => $option) {
-			      echo '<li>';
-			      echo '<input type="radio" id="option_' . ($index + 1) . '" name="selected_option" value="option_' . ($index + 1) . '">';
-			      echo '<label for="option_' . ($index + 1) . '">' . $option . '</label>';
-			      echo '</li>';
-    			}
-	    	?>
-	    </ul>
-	    <input type="submit" value="Submit" />
-	</form>
-
+	<div>
+		<h4><?php echo $user["email"] ?></h4>
+		<h4><?php echo $user["name"] ?></h4>
+		<h4><?php echo $user["address"] ?></h4>
+		<form method="post" action="home.php">
+			<input type="submit" value="logout" name="logout" />
+		</form>
+	</div>
+	
 </body>
 </html>
+
+
+<?php 
+
+if (isset($_POST['logout'])) {
+    logout();
+    header("location: /login.php");
+    exit();
+}
+
+?>

@@ -10,10 +10,9 @@ if (isset($_GET['success'])){
 $page_header = "Login Page";
 
 include "public_base.php";
+
 include "login_form.php";
 
-$content = $loginForm;
 
-echo $publicBase;
 ?>
 
