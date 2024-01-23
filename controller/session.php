@@ -1,5 +1,44 @@
 <?php
 
+$db_hostname = "localhost";
+$db_username = "root";
+$db_password = "root";
+$db_name = "quiz";
+
+
+function run_query($query){
+	// Create connection
+	$conn = new mysqli($hostname, $username, $password, $database);
+
+	// Check connection
+	if ($conn->connect_error) {
+	    die("Connection failed: " . $conn->connect_error);
+	}
+
+	$query = "SELECT * FROM users";
+	$result = $conn->query($query);
+
+	if (!$result) {
+	    die("Query failed: " . $conn->error);
+	}
+
+	while ($row = $result->fetch_assoc()) {
+	    echo "User ID: " . $row['id'] . "<br>";
+	    echo "Username: " . $row['username'] . "<br>";
+	    echo "Email: " . $row['email'] . "<br>";
+	    // Add other fields as needed
+	    echo "<hr>";
+	}
+
+	// Close the result set
+	$result->close();
+
+	// Close the MySQL connection
+	$conn->close();
+}
+
+
+
 session_start();
 
 function logout(){
