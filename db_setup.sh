@@ -48,30 +48,4 @@ eval $create_table_cmd
 echo
 echo Table $table_name created successfully.............
 
-# ------------------------------------------------------------------------------------------------------------------
-# 
-# 
-# REM Create asked question table
-# set table_name=asked_question
-# set create_table_query="CREATE TABLE IF NOT EXISTS %table_name% (id INT AUTO_INCREMENT PRIMARY KEY, submitted_ans varchar(1), score INT);"
-# set create_table_cmd=%quiz_query_cmd% -e %create_table_query%
-# 
-# :: Run the MySQL command
-# %create_table_cmd%
-# echo Table %table_name% created successfully.............
-# REM ------------------------------------------------------------------------------------------------------------------
-# 
-# 
-# REM Create quiz table
-# set table_name=quiz
-# set create_table_query="CREATE TABLE IF NOT EXISTS %table_name% (id INT AUTO_INCREMENT PRIMARY KEY, user_id INT, score INT, created_on DATETIME, FOREIGN KEY (user_id) REFERENCES user(id) );"
-# 
-# set create_table_cmd=%quiz_query_cmd% -e %create_table_query%
-# 
-# :: Run the MySQL command
-# %create_table_cmd%
-# echo Table %table_name% created successfully.............
-# REM ------------------------------------------------------------------------------------------------------------------
-
-
 

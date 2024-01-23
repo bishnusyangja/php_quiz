@@ -7,6 +7,18 @@ $db_name = "quiz";
 
 
 function run_query($query){
+	$conn = new mysqli($hostname, $username, $password, $database);
+
+	// Check connection
+	if ($conn->connect_error) {
+	    die("Connection failed: " . $conn->connect_error);
+	}
+	$conn->query($query);
+	$conn->close();
+}
+
+
+function run_select_query($query){
 	// Create connection
 	$conn = new mysqli($hostname, $username, $password, $database);
 
@@ -15,19 +27,15 @@ function run_query($query){
 	    die("Connection failed: " . $conn->connect_error);
 	}
 
-	$query = "SELECT * FROM users";
 	$result = $conn->query($query);
 
 	if (!$result) {
 	    die("Query failed: " . $conn->error);
 	}
 
+	$result_list = array();
 	while ($row = $result->fetch_assoc()) {
-	    echo "User ID: " . $row['id'] . "<br>";
-	    echo "Username: " . $row['username'] . "<br>";
-	    echo "Email: " . $row['email'] . "<br>";
-	    // Add other fields as needed
-	    echo "<hr>";
+	    array_push($result_list, $row);
 	}
 
 	// Close the result set
@@ -35,9 +43,9 @@ function run_query($query){
 
 	// Close the MySQL connection
 	$conn->close();
+
+	return result_list;
 }
-
-
 
 session_start();
 
@@ -47,8 +55,6 @@ function logout(){
 	$_SESSION = array();
 	session_destroy();
 }
-
-
 
 $session_id = isset($_SESSION['session_id']) ? $_SESSION['session_id'] : '';
 echo "session id is $session_id";
@@ -63,7 +69,8 @@ function get_user_detail($session_id){
 	return array(
 		"email" => "something@gmail.com", 
 		"name" => "ABCD",
-		"address" => "Pokhara"
+		"address" => "Pokhara",
+		"uuid" => "some_rand_str"
 	);
 }
 
