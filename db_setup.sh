@@ -26,7 +26,7 @@ echo $quiz_query_cmd
 table_name=user
 
 # Create User table
-create_table_query="CREATE TABLE IF NOT EXISTS $table_name (id INT AUTO_INCREMENT PRIMARY KEY, uuid VARCHAR(22), name VARCHAR(40),email VARCHAR(60),address VARCHAR(50), is_admin BOOLEAN NOT NULL DEFAULT FALSE );"
+create_table_query="CREATE TABLE IF NOT EXISTS $table_name (id INT AUTO_INCREMENT PRIMARY KEY, uuid VARCHAR(22), name VARCHAR(40),email VARCHAR(60),address VARCHAR(50), password VARCHAR(255) NOT NULL, is_admin BOOLEAN NOT NULL DEFAULT FALSE );"
 
 create_table_cmd="$quiz_query_cmd -e \"$create_table_query\""
  

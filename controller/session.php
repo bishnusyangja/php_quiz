@@ -7,10 +7,18 @@ $db_name = "quiz";
 
 
 function run_query($query){
-	$conn = new mysqli($hostname, $username, $password, $database);
+	global $db_hostname, $db_username, $db_password, $db_name;
+	echo $db_hostname;
+	echo $db_username;
+	echo $db_password;
+	echo $db_name;
+	// Create connection
+	$conn = new mysqli($db_hostname, $db_username, $db_password, $db_name);
 
 	// Check connection
 	if ($conn->connect_error) {
+		echo "error ";
+		echo "connection error is here" . $conn->connect_error;
 	    die("Connection failed: " . $conn->connect_error);
 	}
 	$conn->query($query);
@@ -19,8 +27,9 @@ function run_query($query){
 
 
 function run_select_query($query){
+	global $db_hostname, $db_username, $db_password, $db_name;
 	// Create connection
-	$conn = new mysqli($hostname, $username, $password, $database);
+	$conn = new mysqli($db_hostname, $db_username, $db_password, $db_name);
 
 	// Check connection
 	if ($conn->connect_error) {
@@ -44,7 +53,7 @@ function run_select_query($query){
 	// Close the MySQL connection
 	$conn->close();
 
-	return result_list;
+	return $result_list;
 }
 
 session_start();
