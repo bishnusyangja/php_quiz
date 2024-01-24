@@ -12,13 +12,12 @@ if ($_SERVER["REQUEST_METHOD"] == "GET"){
 		// run_query($query);
 		$query = "select name, email, uuid from user";
 		$result = run_select_query($query);
-		foreach ($result as $key => $value){
-			echo $index . "<br/>";
-			echo "name is : " . $value['name'] . "<br/>";
-			echo "email is : " . $value['email'] . "<br/>";
-			echo "uuid is : " . $value['uuid'] . "<br/>";
-
+		foreach ($result as $row){
+			foreach ($row as $key => $value){
+				echo "$key: $value<br>";
+			}
 		}
+		
 	}
 }
 
