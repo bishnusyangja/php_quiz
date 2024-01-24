@@ -27,5 +27,5 @@ $options = $data["options"];
 			}
     	?>
     </ul>
-    <input type="submit" value="Submit" />
+    <input class="submit-button" type="submit" value="Submit" />
 </form>

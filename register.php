@@ -36,7 +36,7 @@ $page_header = "Register Page";
         <input type="password" name="confirm_password" required>
         <br>
         <!-- Add more form fields as needed -->
-        <input type="submit" value="Submit">
+        <input class="submit-button" type="submit" value="Submit">
     </form>
 	</form>
 

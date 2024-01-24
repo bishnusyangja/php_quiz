@@ -10,14 +10,14 @@
 <body>
 	<h2><?php echo $page_header ?></h2>
 	
-	<div>
+	<nav class="navigation-bar">
 		<h4><?php echo $user["email"] ?></h4>
 		<h4><?php echo $user["name"] ?></h4>
 		<h4><?php echo $user["address"] ?></h4>
 		<form method="post" action="home.php">
 			<input type="submit" value="logout" name="logout" />
 		</form>
-	</div>
+	</nav>
 	
 </body>
 </html>

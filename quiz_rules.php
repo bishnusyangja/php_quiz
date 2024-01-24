@@ -11,6 +11,6 @@ include "base.php";
 	---> this is rule number three <br/>
 
 	<form action="play_quiz.php">
-		<input type="submit" value="Start to Play"/>
+		<input class="submit-button" type="submit" value="Start to Play"/>
 	</form>
 </div>
