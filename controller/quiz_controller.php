@@ -1,13 +1,13 @@
 <?php
 
 
-def get_question_details($last_question){
+function get_question_details($last_question){
     $question_item = array(
         "question" => "How old are you ?", 
         "options" => ["I am 20", "I am 25", "I am 26", "I am 27"],
         "quiz_id" => "abcdfdf"
     );
-    reurn $question_item;
+    return $question_item;
 }
 
 $response = get_question_details($last_question);

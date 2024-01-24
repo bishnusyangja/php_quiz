@@ -13,19 +13,21 @@ $options = $data["options"];
 
 ?>
 
+<div class="center-align">
+	<form method="post" action="/controller/quiz_controller.php">
+		<p>  <?php echo $question ?> </p>
+	    
+	    <ul class="no-list">
+	    	<?php
+	    		foreach ($options as $index => $option) {
+			      echo '<li>';
+			      echo '<input type="radio" id="id_option_' . ($index + 1) . '" name="selected_option" value="option_' . ($index + 1) . '">';
+			      echo '<label for="option_' . ($index + 1) . '">' . $option . '</label>';
+			      echo '</li>';
+				}
+	    	?>
+	    </ul>
+	    <input class="submit-button" type="submit" value="Submit" />
+	</form>
 
-<form method="post" action="/controller/quiz_controller.php">
-	<p>  <?php echo $question ?> </p>
-    
-    <ul class="no-list">
-    	<?php
-    		foreach ($options as $index => $option) {
-		      echo '<li>';
-		      echo '<input type="radio" id="id_option_' . ($index + 1) . '" name="selected_option" value="option_' . ($index + 1) . '">';
-		      echo '<label for="option_' . ($index + 1) . '">' . $option . '</label>';
-		      echo '</li>';
-			}
-    	?>
-    </ul>
-    <input class="submit-button" type="submit" value="Submit" />
-</form>
+</div>

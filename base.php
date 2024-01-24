@@ -8,17 +8,18 @@
 </head>
 
 <body>
-	<h2><?php echo $page_header ?></h2>
-	
-	<nav class="navigation-bar">
-		<h4><?php echo $user["email"] ?></h4>
-		<h4><?php echo $user["name"] ?></h4>
-		<h4><?php echo $user["address"] ?></h4>
-		<form method="post" action="home.php">
-			<input type="submit" value="logout" name="logout" />
-		</form>
-	</nav>
-	
+	<div class="center-align margin-panel">
+		<nav class="navigation-bar">
+			<h4 class="center-align margin-panel"><?php echo $user["email"] ?></h4>
+			<h4><?php echo $user["name"] ?></h4>
+			<h4><?php echo $user["address"] ?></h4>
+			<form method="post" action="home.php">
+				<input class="link" type="submit" value="logout" name="logout" />
+			</form>
+		</nav>
+		<h2 class="center-align margin-panel"><?php echo $page_header ?></h2>
+	</div>
+
 </body>
 </html>
 

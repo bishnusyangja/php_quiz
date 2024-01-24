@@ -66,7 +66,6 @@ function logout(){
 }
 
 $session_id = isset($_SESSION['session_id']) ? $_SESSION['session_id'] : '';
-echo "session id is $session_id";
 
 if (!$session_id){
 	header("location: /login.php");
