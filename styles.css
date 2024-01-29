@@ -103,3 +103,20 @@ nav.navigation-bar {
     color: green;
     padding: 10px;
 }
+
+.profile {
+	float: right;
+	position: relative;
+	border: 1px solid red;
+	margin: 10px;
+	padding: 10px;
+	background-color: #bbbbbb;
+}
+
+.main-content {
+	text-align: center;
+}
+
+.rules {
+	text-align: left;
+}
