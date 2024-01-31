@@ -5,7 +5,7 @@ include "base.php";
 
 ?>
 
-<div class="rules main-content">
+<div class="main-content">
 	<div class="rules">
 		1. There are two rounds.</br>
 		2. First round contains two questions each carrying 10 marks.</br>
@@ -15,6 +15,6 @@ include "base.php";
 	</div>
 </div>
 
-<form class="form-class" action="play_quiz.php">
+<form action="play_quiz.php">
 	<input class="submit-button" type="submit" value="Start to Play"/>
 </form>

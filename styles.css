@@ -5,9 +5,16 @@ ul.no-list {
   }
 
 
+
+li.keep-margin {
+	margin:10px;
+	padding:5px;
+}
+
 body {
 	margin : 30px;
 }
+
 
 form.form-class {
     max-width: 400px;
@@ -20,8 +27,7 @@ form.form-class {
 
 /* Style the form labels */
 label {
-    display: block;
-    margin-bottom: 8px;
+    margin: 5px;
 }
 
 .center-align {
@@ -32,6 +38,7 @@ label {
 	width: 90%;
 	margin: 20px;
 	padding: 10px;
+	text-align: left;
 }
 
 /* Style the input fields */
@@ -43,25 +50,13 @@ input.input-class {
     border-radius: 4px;
 }
 
-/* Style the submit button */
-/*input[type="submit"].submit-button {
-    background-color: #4CAF50;
-    color: white;
-    cursor: pointer;
-}
-
-input[type="submit"].submit-button:hover {
-    background-color: #45a049;
-}*/
-
-
 /* Style the input with class "submit-button" */
 .submit-button {
     background-color: #4C9950;
     color: white;
     cursor: pointer;
-    margin: 10px;
-    padding: 5px;
+    margin: 5px;
+    padding: 15px;
 }
 
 .submit-button:hover {
@@ -110,13 +105,38 @@ nav.navigation-bar {
 	border: 1px solid red;
 	margin: 10px;
 	padding: 10px;
-	background-color: #bbbbbb;
+	background-color: #dddddd;
 }
 
 .main-content {
+	padding: 5px;
+	margin: 5px;
 	text-align: center;
+	border : 1px solid black;
+	width: 70%;
+	min-height: 400px;
+	background-color: #dddddd;
 }
 
 .rules {
 	text-align: left;
+}
+
+.question-text {
+	font-size: 30px;
+}
+
+.option-list {
+	font-size: 20px;
+	display: inline !important;
+
+}
+
+label.highlight-green {
+	
+	padding: 10px;
+}
+
+label.highlight-green:hover {
+	background-color : #aaddaa;
 }

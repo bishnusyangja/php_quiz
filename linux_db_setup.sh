@@ -54,7 +54,7 @@ echo Table $table_name created successfully.............
 
 # Create Quiz Table
 table_name=quiz
-create_table_query="CREATE TABLE IF NOT EXISTS $table_name (id INT AUTO_INCREMENT PRIMARY KEY, user_id INT, score INT, created_on DATETIME, FOREIGN KEY (user_id) REFERENCES user(id) );"
+create_table_query="CREATE TABLE IF NOT EXISTS $table_name (id INT AUTO_INCREMENT PRIMARY KEY, user_id INT, uuid VARCHAR(22),  score INT, created_on DATETIME, FOREIGN KEY (user_id) REFERENCES user(id) );"
 
 create_table_cmd="$quiz_query_cmd -e \"$create_table_query\""
  
@@ -66,7 +66,7 @@ echo Table $table_name created successfully.............
 
 # Create AskedQuestion Table
 table_name=asked_question
-create_table_query="CREATE TABLE IF NOT EXISTS $table_name (id INT AUTO_INCREMENT PRIMARY KEY, submitted_ans varchar(1), score INT, user_id INT, question_id INT, quiz_id INT, created_on DATETIME, FOREIGN KEY (quiz_id) REFERENCES quiz(id), FOREIGN KEY (user_id) REFERENCES user(id), FOREIGN KEY (question_id) REFERENCES question(id));"
+create_table_query="CREATE TABLE IF NOT EXISTS $table_name (id INT AUTO_INCREMENT PRIMARY KEY, submitted_ans varchar(1), score INT, uuid VARCHAR(22), question_type VARCHAR(50), user_id INT, question_id INT, quiz_id INT, created_on DATETIME, FOREIGN KEY (quiz_id) REFERENCES quiz(id), FOREIGN KEY (user_id) REFERENCES user(id), FOREIGN KEY (question_id) REFERENCES question(id));"
 
 create_table_cmd="$quiz_query_cmd -e \"$create_table_query\""
  
