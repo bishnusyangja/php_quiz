@@ -13,8 +13,6 @@ function run_query($query){
 
 	// Check connection
 	if ($conn->connect_error) {
-		echo "error ";
-		echo "connection error is here" . $conn->connect_error;
 	    die("Connection failed: " . $conn->connect_error);
 	}
 	$conn->query($query);

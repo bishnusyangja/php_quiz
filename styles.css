@@ -123,13 +123,25 @@ nav.navigation-bar {
 }
 
 .question-text {
-	font-size: 30px;
+	font-size: 22px;
 }
 
 .option-list {
-	font-size: 20px;
+	font-size: 18px;
 	display: inline !important;
 
+}
+
+.quiz-round-title {
+	font-size: 30px;
+	background-color: #daaabb;
+	padding: 10px;
+	margin: 5px;
+}
+
+.question-number {
+	font-size: 20px;
+	float:right;
 }
 
 label.highlight-green {

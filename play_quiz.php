@@ -10,6 +10,18 @@ include "controller/quiz_controller.php";
 $data = json_decode($json_response, true);
 $question = $data["question"];
 $options = $data["options"];
+$uuid = $data["uuid"];
+$is_score_board = $data["is_score_board"];
+$question_type = $data["question_type"];
+$question_number = $data["question_number"];
+
+function capitalize($value){
+	$words = explode('_', $value);
+    $titleCaseWords = array_map('ucfirst', $words);
+    $titleCaseString = implode(' ', $titleCaseWords);
+    return $titleCaseString;
+}
+
 
 
 function get_option_val($idx){
@@ -20,9 +32,12 @@ function get_option_val($idx){
 
 ?>
 
-<form method="post" action="/controller/quiz_controller.php">
+<form method="post" action="">
 	<div class="main-content">
 		<div class="margin-panel">
+			<div class="quiz-round-title"><?php echo capitalize($question_type)?> 
+				<div class="question-number"> <?php echo "Question : ".$question_number ?></div></div>
+			<input type="hidden" name="uuid" value="<?php echo $uuid ?>" />
 			<p class="question-text">  <?php echo $question ?> </p>
 		    
 		    <ul class="no-list option-list">

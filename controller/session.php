@@ -19,13 +19,14 @@ if (!$session_id){
 
 function get_user_detail($session_id){
 	// create a query to get user details from user email;
-	$query = "select email, name, address from user where uuid='" . $session_id . "';";
+	$query = "select id, email, name, address from user where uuid='" . $session_id . "';";
 	$query_result = run_select_query($query, $single=true);
 	return array(
 		"email" => $query_result["email"],
 		"name" => $query_result["name"],
 		"address" => $query_result["address"],
 		"uuid" => $session_id,
+		"id" => $query_result["id"]
 	);
 	// if $query_result is the return value of run_select_query with multple rows;
 	// $result = array();
