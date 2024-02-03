@@ -29,6 +29,12 @@ function get_option_val($idx){
 	return $option_val[$idx];	
 }
 
+if ($is_score_board) {
+	$error_message = "Email or password doesn't match.";
+    $encoded_error_message = urlencode($error_message);
+    header("location: /score_board.php?error=$encoded_error_message");
+    exit();
+}
 
 ?>
 
