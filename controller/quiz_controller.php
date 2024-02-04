@@ -16,14 +16,13 @@ $quiz_rules = array(
 
 function get_asked_ques_count($quiz_id, $user_id) {
     $query = "select count(*) as row_count from asked_question where quiz_id=" . $quiz_id . " and user_id=" . $user_id . ";";
-    echo $query;
     $query_result = run_select_query($query, $single=true);
     $asked_ques_count = $query_result["row_count"];
     return $asked_ques_count;
 }
 
 
-function check_answer($answer_submitted, $question_id, $asked_question_id, $asked_ques_count){
+function check_answer($answer_submitted, $question_id, $asked_question_id){
     // check with db query the right answer is;
     $select_query = "select correct_option from question where id=" . $question_id . ";";
     $query_result = run_select_query($select_query, $single=true);
@@ -32,12 +31,10 @@ function check_answer($answer_submitted, $question_id, $asked_question_id, $aske
         $score=10;
     }else{
         $score=0;
-        if ($asked_ques_count > 2){
-            $is_score_board = true;
-        }
     }
     $update_query = "UPDATE asked_question SET submitted_ans = '" . $answer_submitted . "', score=" . $score . " WHERE id=" . $asked_question_id . ";";
     run_query($update_query);
+    return $score;
 }
 
 
@@ -143,6 +140,7 @@ $minValue = 1;
 $maxValue = find_max_id_of_question();
 $user_id = $user["id"];
 $exclusion_list = array();
+$last_score = 0;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $answer_submitted = isset($_POST['selected_option']) ? $_POST['selected_option'] : '';
@@ -157,17 +155,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         if (!in_array($last_asked_question_id, $exclusion_list)){
             $is_score_board = true;
         }else{
-            check_answer($answer_submitted, $last_question_id, $last_asked_question_id, $asked_ques_count);
+            $last_score = check_answer($answer_submitted, $last_question_id, $last_asked_question_id);
         }
     }
-}else{
-    // check last quiz asked date and limit the time and prevent to play quiz;
-    if ($asked_ques_count);
-
 }
 
 
 $question_type = get_question_type($quiz_id, $user_id);
+
+if ($last_score == 0 && $asked_ques_count > 2){
+    $is_score_board = true;
+}
 
 if ($question_type == null){
     $is_score_board = true;
@@ -175,7 +173,8 @@ if ($question_type == null){
 
 if ($question_number_counter == 3){
     $query = "SELECT SUM(score) AS total_score FROM asked_question WHERE quiz_id=" . $quiz_id . ";";
-    $query_result = run_query($query);
+    $query_result = run_select_query($query, $single=true);
+    
     if ($query_result["total_score"] < 10 ){
         $is_score_board = true;
     }

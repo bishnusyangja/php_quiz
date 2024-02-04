@@ -8,12 +8,7 @@ include "base.php";
 include "controller/quiz_controller.php";
 
 $data = json_decode($json_response, true);
-$question = $data["question"];
-$options = $data["options"];
-$uuid = $data["uuid"];
 $is_score_board = $data["is_score_board"];
-$question_type = $data["question_type"];
-$question_number = $data["question_number"];
 
 function capitalize($value){
 	$words = explode('_', $value);
@@ -21,8 +16,6 @@ function capitalize($value){
     $titleCaseString = implode(' ', $titleCaseWords);
     return $titleCaseString;
 }
-
-
 
 function get_option_val($idx){
 	$option_val = array("a", "b", "c", "d");
@@ -34,8 +27,13 @@ if ($is_score_board) {
     $encoded_error_message = urlencode($error_message);
     header("location: /score_board.php?error=$encoded_error_message");
     exit();
+}else{
+	$question = $data["question"];
+	$options = $data["options"];
+	$uuid = $data["uuid"];
+	$question_type = $data["question_type"];
+	$question_number = $data["question_number"];
 }
-
 ?>
 
 <form method="post" action="">

@@ -17,7 +17,6 @@ include "base.php";
 
 
 function get_quiz_id_array($user_id){
-	echo "<br/> user id is $user_id";
 	$query = "select id from quiz where user_id=" . $user_id . " order by id desc;" ;
 	$query_result = run_select_query($query);
 	$quiz_id_array = array();
