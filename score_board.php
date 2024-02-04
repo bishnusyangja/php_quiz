@@ -55,9 +55,10 @@ $last_quiz_id = $quiz_id_array[0];
 $score = get_score_from_quiz($user["id"], $last_quiz_id);
 
 ?>
+<a href="home.php" > Back to Home</a>
 
-<div>
-	<a href="home.php" > Back to Home</a>
+<div class="main-content">
+	
 	<div class="score-board">
 		Your score is <span class="score-number"> <?php echo $score ?> </span>	
 

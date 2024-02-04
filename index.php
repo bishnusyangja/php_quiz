@@ -1,10 +1,5 @@
 <?php
 
-include "backend.php";
-
-$data = json_decode($json_response, true);
-$question = $data["question"];
-$options = $data["options"];
 $page_header = "Welcome to Quiz Program";
 
 ?>

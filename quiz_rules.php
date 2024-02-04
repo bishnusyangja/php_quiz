@@ -3,6 +3,8 @@
 include "controller/session.php";
 include "base.php";
 
+$page_header = "Quiz Rules";
+
 ?>
 
 <div class="main-content">

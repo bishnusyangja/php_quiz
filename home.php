@@ -1,5 +1,7 @@
 <?php
 
+$page_header = "Home Page";
+
 include "controller/session.php";
 include "base.php";
 

@@ -109,17 +109,21 @@ nav.navigation-bar {
 }
 
 .main-content {
-	padding: 5px;
-	margin: 5px;
+	padding: 10px;
+	margin: 10px;
 	text-align: center;
 	border : 1px solid black;
 	width: 70%;
 	min-height: 400px;
 	background-color: #dddddd;
+    font-size: 22px;
 }
 
 .rules {
 	text-align: left;
+    font-size: 25px;
+    line-height: 1.5;
+    margin: 20px;
 }
 
 .question-text {

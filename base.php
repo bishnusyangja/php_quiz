@@ -1,3 +1,13 @@
+<?php 
+
+if (isset($_POST['logout'])) {
+    logout();
+    header("location: /login.php");
+    exit();
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,12 +36,3 @@
 </html>
 
 
-<?php 
-
-if (isset($_POST['logout'])) {
-    logout();
-    header("location: /login.php");
-    exit();
-}
-
-?>
