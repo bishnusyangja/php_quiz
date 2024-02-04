@@ -14,8 +14,9 @@ $quiz_rules = array(
     "second_round" => 8
 );
 
-function get_asked_ques_count() {
-    $query = "select count(*) as row_count from asked_question where quiz_id='" . $quiz_id . "';";
+function get_asked_ques_count($quiz_id, $user_id) {
+    $query = "select count(*) as row_count from asked_question where quiz_id=" . $quiz_id . " and user_id=" . $user_id . ";";
+    echo $query;
     $query_result = run_select_query($query, $single=true);
     $asked_ques_count = $query_result["row_count"];
     return $asked_ques_count;
@@ -71,8 +72,9 @@ function get_asked_question_list($user_id, $quiz_id){
     if ($quiz_id == null){
         return $id_array;
     }
-    $query = "select id from asked_question where user_id='" . $user_id . "' and quiz_id='" . $quiz_id . "';" ;
-    $query_result = run_select_query($query, $single=true);
+    $query = "select id from asked_question where user_id=" . $user_id . " and quiz_id=" . $quiz_id . ";" ;
+    
+    $query_result = run_select_query($query);
     
     foreach ($query_result as $row){
         array_push($id_array, $row["id"]);
@@ -81,14 +83,14 @@ function get_asked_question_list($user_id, $quiz_id){
 }
 
 
-function get_question_type($quiz_id){
-    global $default_question_type, $quiz_rules, $asked_ques_count, $question_number_counter, ;
+function get_question_type($quiz_id, $user_id){
+    global $default_question_type, $quiz_rules, $asked_ques_count, $question_number_counter;
     if ($quiz_id == null){
         $question_number_counter = 1;
         return $default_question_type;
     }
     if ($asked_ques_count == null){
-        $asked_ques_count = get_asked_ques_count($quiz_id);
+        $asked_ques_count = get_asked_ques_count($quiz_id, $user_id);
     }
     $rulewise_ques_count = 0;
     $question_number_counter = $asked_ques_count+1;
@@ -114,11 +116,11 @@ function save_question_into_the_quiz($question_id, $question_type, $user_id){
         $query = "insert into quiz (user_id, uuid) values(" .$user_id .", '" .$quiz_uuid .  "');";
     	run_query($query);
 
-	   $quiz_id_query = "select id from quiz where uuid='" . $quiz_uuid . "';";
-	   $quiz_query_result = run_select_query($quiz_id_query, $single=true);
-	   $quiz_id = $quiz_query_result["id"];
+        $quiz_id_query = "select id from quiz where uuid='" . $quiz_uuid . "';";
+        $quiz_query_result = run_select_query($quiz_id_query, $single=true);
+        $quiz_id = $quiz_query_result["id"];
     }	
-    $asked_question_query = "insert into asked_question (question_id, quiz_id, question_type, uuid) values(" . $question_id . ", " .$quiz_id . ", '" .$question_type . "', '"  .$asked_question_uuid ."');";
+    $asked_question_query = "insert into asked_question (question_id, quiz_id, user_id, question_type, uuid) values(" . $question_id . ", " .$quiz_id . ", " .$user_id . ", '" .$question_type . "', '"  .$asked_question_uuid ."');";
     run_query($asked_question_query);
     return $asked_question_uuid;
 }
@@ -137,6 +139,11 @@ function get_question_details($question_id){
 }
 
 
+$minValue = 1;
+$maxValue = find_max_id_of_question();
+$user_id = $user["id"];
+$exclusion_list = array();
+
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $answer_submitted = isset($_POST['selected_option']) ? $_POST['selected_option'] : '';
     $asked_question_uuid = isset($_POST['uuid']) ? $_POST['uuid'] : null;
@@ -145,19 +152,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         $quiz_id = $query_result["quiz_id"];
         $last_question_id = $query_result["question_id"];
         $last_asked_question_id = $query_result["id"];
-        $asked_ques_count = get_asked_ques_count($quiz_id);
-        check_answer($answer_submitted, $last_question_id, $last_asked_question_id, $asked_ques_count);
+        $asked_ques_count = get_asked_ques_count($quiz_id, $user_id);
+        $exclusion_list = get_asked_question_list($user_id, $quiz_id);
+        if (!in_array($last_asked_question_id, $exclusion_list)){
+            $is_score_board = true;
+        }else{
+            check_answer($answer_submitted, $last_question_id, $last_asked_question_id, $asked_ques_count);
+        }
     }
-    
+}else{
+    // check last quiz asked date and limit the time and prevent to play quiz;
+    if ($asked_ques_count);
+
 }
 
 
-
-$minValue = 1;
-$maxValue = find_max_id_of_question();
-$user_id = $user["id"];
-$exclusion_list = get_asked_question_list($user_id, $quiz_id);
-$question_type = get_question_type($quiz_id);
+$question_type = get_question_type($quiz_id, $user_id);
 
 if ($question_type == null){
     $is_score_board = true;
@@ -166,15 +176,19 @@ if ($question_type == null){
 if ($question_number_counter == 3){
     $query = "SELECT SUM(score) AS total_score FROM asked_question WHERE quiz_id=" . $quiz_id . ";";
     $query_result = run_query($query);
-    (if $query_result["total_score"] < 10 ){
+    if ($query_result["total_score"] < 10 ){
         $is_score_board = true;
     }
 }
 
-$random_ques_number = get_random_int($minValue, $maxValue, $exclusion_list);
-$asked_question_uuid = save_question_into_the_quiz($random_ques_number, $question_type, $user["id"]);
+if (!$is_score_board){
+    $random_ques_number = get_random_int($minValue, $maxValue, $exclusion_list);
+    $asked_question_uuid = save_question_into_the_quiz($random_ques_number, $question_type, $user["id"]);
+    $response = get_question_details($random_ques_number);
+}else{
+    $response = array();
+}
 
-$response = get_question_details($random_ques_number);
 $response['is_score_board'] = $is_score_board;
 $response['uuid'] = $asked_question_uuid;
 $response['question_type'] = $question_type;
